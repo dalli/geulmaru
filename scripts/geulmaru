@@ -36,6 +36,18 @@ if [ $# -eq 0 ]; then
     exit 0
 fi
 
+# 서브커맨드만 입력한 경우 자동으로 --help 추가
+# 예: feed -> feed --help, articles -> articles --help
+if [ $# -eq 1 ]; then
+    COMMAND="$1"
+    case "$COMMAND" in
+        feed|articles)
+            python -m src.main "$@" --help
+            exit 0
+            ;;
+    esac
+fi
+
 # 실행
 python -m src.main "$@"
 

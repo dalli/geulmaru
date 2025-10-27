@@ -32,6 +32,21 @@ if "%1"=="" (
     exit /b 0
 )
 
+REM 서브커맨드만 입력한 경우 자동으로 --help 추가
+REM 예: feed -> feed --help, articles -> articles --help
+if "%2"=="" (
+    if "%1"=="feed" (
+        call "%VENV_DIR%\Scripts范畴tivate.bat"
+        python -m src.main %1 --help
+        exit /b 0
+    )
+    if "%1"=="articles" (
+        call "%VENV_DIR%\Scripts\activate.bat"
+        python -m src.main %1 --help
+        exit /b 0
+    )
+)
+
 REM 가상환경 활성화 및 실행
 call "%VENV_DIR%\Scripts\activate.bat"
 python -m src.main %*
