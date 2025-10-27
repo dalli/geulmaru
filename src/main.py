@@ -1,10 +1,15 @@
 """Main entry point for Geulmaru CLI application."""
+import logging
 import typer
 
 from src.cli.init_db import init_db_command
 from src.cli.feed import add_feed_command, list_feeds_command, remove_feed_command
 from src.cli.fetch import fetch_all_command
 from src.cli.articles import list_articles_command, search_articles_command
+from src.shutdown import setup_signal_handlers
+
+logger = logging.getLogger(__name__)
+
 
 # Create main CLI app
 app = typer.Typer(help="Geulmaru - RSS Collector Application")
@@ -45,6 +50,7 @@ def init_db():
 @app.command("fetch-all")
 def fetch_all():
     """Fetch articles from all registered RSS feeds."""
+    setup_signal_handlers()
     fetch_all_command()
 
 

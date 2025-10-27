@@ -43,15 +43,38 @@ def get_log_level() -> int:
 
 
 def setup_logging() -> None:
-    """Configure structured logging with levels."""
+    """Configure structured logging with levels and context.
+    
+    Provides structured logging with:
+    - Timestamp
+    - Module name
+    - Log level
+    - Contextual message
+    - Support for additional context fields
+    """
     log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     date_format = "%Y-%m-%d %H:%M:%S"
     
+    # Get environment-based log level
+    log_level = get_log_level()
+    
     logging.basicConfig(
-        level=get_log_level(),
+        level=log_level,
         format=log_format,
         datefmt=date_format,
+        handlers=[
+            logging.StreamHandler()  # Use stream handler for better compatibility
+        ]
     )
+    
+    # Set level for root logger to avoid double messages
+    logging.getLogger().setLevel(log_level)
+    
+    # Disable noisy third-party loggers
+    logging.getLogger("newspaper").setLevel(logging.WARNING)
+    logging.getLogger("requests").setLevel(logging.WARNING)
+    logging.getLogger("urllib3").setLevel(logging.WARNING)
+    logging.getLogger("sqlalchemy").setLevel(logging.WARNING)
     
     # Create logger for the application
     logger = logging.getLogger("geulmaru")

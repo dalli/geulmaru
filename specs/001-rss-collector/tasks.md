@@ -224,12 +224,12 @@ description: Task list for RSS Collector Application implementation
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T070 [P] Add retry logic for transient network failures in src/services/feed_fetcher.py
-- [ ] T071 [P] Add graceful shutdown handler (SIGINT/SIGTERM) in main.py
-- [ ] T072 [P] Improve logging with structured format and context
-- [ ] T073 [P] Add performance optimization for large article lists
-- [ ] T074 [P] Add README.md with installation and usage instructions
-- [ ] T075 [P] Run quickstart.md validation
+- [x] T070 [P] Add retry logic for transient network failures in src/services/feed_fetcher.py
+- [x] T071 [P] Add graceful shutdown handler (SIGINT/SIGTERM) in main.py
+- [x] T072 [P] Improve logging with structured format and context
+- [x] T073 [P] Add performance optimization for large article lists
+- [x] T074 [P] Add README.md with installation and usage instructions
+- [x] T075 [P] Run quickstart.md validation
 - [ ] T076 Add cleanup for orphaned articles (optional feature)
 - [ ] T077 Code cleanup and refactoring
 

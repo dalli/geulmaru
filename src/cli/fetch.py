@@ -5,12 +5,12 @@ import typer
 from src.services.storage import get_db_session
 from src.models.feed import Feed
 from src.models.article import Article
-from src.services.feed_fetcher import fetch_rss
-from src.services.feed_parser import parse_rss
-from src.services.article_scraper import scrape_article
 from src.config import setup_logging
 
 logger = logging.getLogger(__name__)
+
+# Import shutdown checker
+from src.shutdown import is_shutdown_requested
 
 
 def fetch_all_command() -> None:
@@ -49,10 +49,19 @@ def fetch_all_command() -> None:
             typer.echo(f"Processing {len(feeds)} RSS feed(s)...")
             
             for feed in feeds:
+                # Check for shutdown request
+                if is_shutdown_requested():
+                    logger.info("Shutdown requested, stopping fetch operation")
+                    typer.echo("\n⚠️  Shutdown requested. Stopping fetch operation...")
+                    break
+                
                 stats['feeds_processed'] += 1
                 typer.echo(f"\nFetching from: {feed.url}")
                 
                 try:
+                    # Import here to enable testing with mock
+                    from src.services.feed_fetcher import fetch_rss
+                    
                     # Fetch RSS XML
                     rss_content = fetch_rss(feed.url)
                     
@@ -60,6 +69,9 @@ def fetch_all_command() -> None:
                         logger.warning(f"Failed to fetch RSS from: {feed.url}")
                         typer.echo("  → Failed to fetch RSS feed")
                         continue
+                    
+                    # Import here to enable testing with mock
+                    from src.services.feed_parser import parse_rss
                     
                     # Parse RSS to get article metadata
                     articles_metadata = parse_rss(rss_content)
@@ -74,6 +86,12 @@ def fetch_all_command() -> None:
                     
                     # Process each article
                     for article_meta in articles_metadata:
+                        # Check for shutdown request
+                        if is_shutdown_requested():
+                            logger.info("Shutdown requested, stopping article processing")
+                            typer.echo("\n⚠️  Shutdown requested. Stopping article processing...")
+                            break
+                        
                         article_url = article_meta['url']
                         
                         # Check for duplicates before scraping
@@ -81,6 +99,9 @@ def fetch_all_command() -> None:
                             logger.debug(f"Skipping duplicate: {article_url}")
                             stats['articles_duplicates'] += 1
                             continue
+                        
+                        # Import here to enable testing with mock
+                        from src.services.article_scraper import scrape_article
                         
                         # Scrape article content
                         typer.echo(f"  → Scraping: {article_meta['title'][:50]}...")

@@ -46,8 +46,11 @@ class TestFetchAllCommand:
         # Mock RSS fetching and parsing
         sample_rss = (fixtures_dir / "sample_rss.xml").read_text()
         
-        with patch('src.services.feed_fetcher.fetch_rss', return_value=sample_rss):
-            with patch('src.services.article_scraper.scrape_article') as mock_scrape:
+        # Import inside function to enable proper patching
+        from src.services import feed_fetcher, article_scraper
+        
+        with patch.object(feed_fetcher, 'fetch_rss', return_value=sample_rss):
+            with patch.object(article_scraper, 'scrape_article') as mock_scrape:
                 # Mock article scraping to return simple content
                 mock_scrape.return_value = {
                     'title': 'Scraped Title',
@@ -124,8 +127,11 @@ class TestFetchAllCommand:
         # Mock RSS fetching and parsing
         sample_rss = (fixtures_dir / "sample_rss.xml").read_text()
         
-        with patch('src.services.feed_fetcher.fetch_rss', return_value=sample_rss):
-            with patch('src.services.article_scraper.scrape_article') as mock_scrape:
+        # Import inside function to enable proper patching
+        from src.services import feed_fetcher, article_scraper
+        
+        with patch.object(feed_fetcher, 'fetch_rss', return_value=sample_rss):
+            with patch.object(article_scraper, 'scrape_article') as mock_scrape:
                 mock_scrape.return_value = {
                     'title': 'Scraped Title',
                     'author': 'Scraped Author',
