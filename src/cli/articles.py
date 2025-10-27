@@ -74,3 +74,68 @@ def list_articles_command(limit: int = 10):
         typer.echo(f"❌ Error listing articles: {e}", err=True)
         raise typer.Exit(1)
 
+
+def search_articles_command(keyword: str, limit: int = 50):
+    """Search articles containing a keyword in title or body.
+    
+    Args:
+        keyword: Search keyword
+        limit: Maximum number of results to display
+    """
+    # Setup logging
+    setup_logging()
+    
+    try:
+        # Ensure database is initialized
+        from src.services.storage import _engine
+        if _engine is None:
+            logger.info("Database not initialized, initializing...")
+            init_database()
+            create_tables()
+        
+        # Get database session
+        session = get_session()
+        
+        try:
+            # Search articles
+            articles = Article.search_by_keyword(session, keyword, limit=limit)
+            
+            # Log operation
+            logger.info(f"Searching for '{keyword}' returned {len(articles)} results")
+            
+            # Display results
+            if not articles:
+                typer.echo(f"🔍 No articles found containing '{keyword}'.")
+                typer.echo("   Try a different keyword or fetch new articles.")
+                return
+            
+            typer.echo(f"🔍 Search results for '{keyword}' (showing {len(articles)}):")
+            typer.echo()
+            
+            for article in articles:
+                # Get feed URL for display
+                feed = Feed.get_by_id(session, article.feed_id)
+                feed_url = feed.url if feed else "Unknown"
+                
+                # Format date
+                created_str = article.created_at.strftime("%Y-%m-%d %H:%M:%S") if article.created_at else "N/A"
+                
+                # Display article
+                typer.echo(f"   [{article.id}] {article.title}")
+                
+                if article.author:
+                    typer.echo(f"       Author: {article.author}")
+                
+                typer.echo(f"       Feed: {feed_url}")
+                typer.echo(f"       URL: {article.url}")
+                typer.echo(f"       Collected: {created_str}")
+                typer.echo()
+        
+        finally:
+            session.close()
+    
+    except Exception as e:
+        logger.error(f"Error searching articles: {e}")
+        typer.echo(f"❌ Error searching articles: {e}", err=True)
+        raise typer.Exit(1)
+

@@ -186,16 +186,16 @@ description: Task list for RSS Collector Application implementation
 
 ### Tests for User Story 6
 
-- [ ] T058 [P] [US6] Unit test for article search in tests/unit/test_article_model.py
-- [ ] T059 [P] [US6] Integration test for articles search command in tests/integration/test_articles_search.py
+- [x] T058 [P] [US6] Unit test for article search in tests/unit/test_article_model.py
+- [x] T059 [P] [US6] Integration test for articles search command in tests/integration/test_articles_search.py
 
 ### Implementation for User Story 6
 
-- [ ] T060 [US6] Implement Article.search_by_keyword() method in src/models/article.py
-- [ ] T061 [US6] Create articles search CLI subcommand in src/cli/articles.py (search command)
-- [ ] T062 [US6] Implement SQL LIKE search on title and body fields
-- [ ] T063 [US6] Format search results with same structure as list command
-- [ ] T064 [US6] Handle "no results found" case with user-friendly message
+- [x] T060 [US6] Implement Article.search_by_keyword() method in src/models/article.py
+- [x] T061 [US6] Create articles search CLI subcommand in src/cli/articles.py (search command)
+- [x] T062 [US6] Implement SQL LIKE search on title and body fields
+- [x] T063 [US6] Format search results with same structure as list command
+- [x] T064 [US6] Handle "no results found" case with user-friendly message
 
 ---
 

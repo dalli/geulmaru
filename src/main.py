@@ -4,7 +4,7 @@ import typer
 from src.cli.init_db import init_db_command
 from src.cli.feed import add_feed_command, list_feeds_command, remove_feed_command
 from src.cli.fetch import fetch_all_command
-from src.cli.articles import list_articles_command
+from src.cli.articles import list_articles_command, search_articles_command
 
 # Create main CLI app
 app = typer.Typer(help="Geulmaru - RSS Collector Application")
@@ -52,6 +52,12 @@ def fetch_all():
 def list_articles(limit: int = typer.Option(10, "--limit", "-l", help="Number of articles to display")):
     """List recent articles from the archive."""
     list_articles_command(limit)
+
+
+@articles_app.command("search")
+def search_articles(keyword: str = typer.Argument(..., help="Search keyword"), limit: int = typer.Option(50, "--limit", "-l", help="Number of results to display")):
+    """Search articles containing a keyword in title or body."""
+    search_articles_command(keyword, limit)
 
 
 @app.command()
