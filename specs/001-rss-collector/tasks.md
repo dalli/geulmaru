@@ -207,14 +207,14 @@ description: Task list for RSS Collector Application implementation
 
 ### Tests for User Story 7
 
-- [ ] T065 [P] [US7] Integration test for feed remove command in tests/integration/test_feed_remove.py
+- [x] T065 [P] [US7] Integration test for feed remove command in tests/integration/test_feed_remove.py
 
 ### Implementation for User Story 7
 
-- [ ] T066 [US7] Implement Feed.remove_feed() method in src/models/feed.py
-- [ ] T067 [US7] Create feed remove CLI subcommand in src/cli/feed.py (remove command)
-- [ ] T068 [US7] Add error handling for non-existent feed ID
-- [ ] T069 [US7] Add confirmation logging for feed removal
+- [x] T066 [US7] Implement Feed.remove_feed() method in src/models/feed.py
+- [x] T067 [US7] Create feed remove CLI subcommand in src/cli/feed.py (remove command)
+- [x] T068 [US7] Add error handling for non-existent feed ID
+- [x] T069 [US7] Add confirmation logging for feed removal
 
 **Checkpoint**: All user stories should now be independently functional
 
