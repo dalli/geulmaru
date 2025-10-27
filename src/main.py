@@ -4,6 +4,7 @@ import typer
 from src.cli.init_db import init_db_command
 from src.cli.feed import add_feed_command, list_feeds_command, remove_feed_command
 from src.cli.fetch import fetch_all_command
+from src.cli.articles import list_articles_command
 
 # Create main CLI app
 app = typer.Typer(help="Geulmaru - RSS Collector Application")
@@ -11,6 +12,10 @@ app = typer.Typer(help="Geulmaru - RSS Collector Application")
 # Create feed sub-app
 feed_app = typer.Typer(help="Manage RSS feeds")
 app.add_typer(feed_app, name="feed")
+
+# Create articles sub-app
+articles_app = typer.Typer(help="Manage collected articles")
+app.add_typer(articles_app, name="articles")
 
 
 @feed_app.command("add")
@@ -41,6 +46,12 @@ def init_db():
 def fetch_all():
     """Fetch articles from all registered RSS feeds."""
     fetch_all_command()
+
+
+@articles_app.command("list")
+def list_articles(limit: int = typer.Option(10, "--limit", "-l", help="Number of articles to display")):
+    """List recent articles from the archive."""
+    list_articles_command(limit)
 
 
 @app.command()

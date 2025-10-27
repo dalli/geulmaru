@@ -161,18 +161,18 @@ description: Task list for RSS Collector Application implementation
 
 ### Tests for User Story 5
 
-- [ ] T049 [P] [US5] Unit test for Article model in tests/unit/test_article_model.py
-- [ ] T050 [P] [US5] Integration test for articles list command in tests/integration/test_articles_list.py
+- [x] T049 [P] [US5] Unit test for Article model in tests/unit/test_article_model.py
+- [x] T050 [P] [US5] Integration test for articles list command in tests/integration/test_articles_list.py
 
 ### Implementation for User Story 5
 
-- [ ] T051 [US5] Implement Article.list_recent() method in src/models/article.py
-- [ ] T052 [US5] Create articles list CLI subcommand in src/cli/articles.py (list command)
-- [ ] T053 [US5] Add --limit option for number of articles to display
-- [ ] T054 [US5] Format article list output with ID, title, author, feed, created_at
-- [ ] T055 [US5] Join with Feed table to show feed URL
-- [ ] T056 [US5] Handle empty article list case with user-friendly message
-- [ ] T057 [US5] Register articles subcommand in main.py
+- [x] T051 [US5] Implement Article.list_recent() method in src/models/article.py
+- [x] T052 [US5] Create articles list CLI subcommand in src/cli/articles.py (list command)
+- [x] T053 [US5] Add --limit option for number of articles to display
+- [x] T054 [US5] Format article list output with ID, title, author, feed, created_at
+- [x] T055 [US5] Join with Feed table to show feed URL
+- [x] T056 [US5] Handle empty article list case with user-friendly message
+- [x] T057 [US5] Register articles subcommand in main.py
 
 **Checkpoint**: At this point, User Stories 1, 2, 4, AND 5 should work independently
 
