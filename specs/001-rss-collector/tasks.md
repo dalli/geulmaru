@@ -41,12 +41,12 @@ description: Task list for RSS Collector Application implementation
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 Setup environment configuration in src/config.py (GEULMARU_DB_PATH, GEULMARU_LOG_LEVEL, GEULMARU_USER_AGENT)
-- [ ] T007 Create Feed model in src/models/feed.py
-- [ ] T008 Create Article model in src/models/article.py
-- [ ] T009 [P] Create database initialization in src/services/storage.py (create_tables function)
-- [ ] T010 [P] Create logging configuration in src/config.py (structured logging with levels)
-- [ ] T011 Create fixtures for test data in tests/fixtures/ (sample_rss.xml, sample_article.html)
+- [x] T006 Setup environment configuration in src/config.py (GEULMARU_DB_PATH, GEULMARU_LOG_LEVEL, GEULMARU_USER_AGENT)
+- [x] T007 Create Feed model in src/models/feed.py
+- [x] T008 Create Article model in src/models/article.py
+- [x] T009 [P] Create database initialization in src/services/storage.py (create_tables function)
+- [x] T010 [P] Create logging configuration in src/config.py (structured logging with levels)
+- [x] T011 Create fixtures for test data in tests/fixtures/ (sample_rss.xml, sample_article.html)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
