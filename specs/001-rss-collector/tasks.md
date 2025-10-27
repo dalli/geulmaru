@@ -27,11 +27,11 @@ description: Task list for RSS Collector Application implementation
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create project structure (src/, tests/, requirements.txt)
-- [ ] T002 [P] Create Python virtual environment and install dependencies (typer, feedparser, newspaper3k, sqlalchemy, pytest)
-- [ ] T003 [P] Setup linting and formatting tools (black, ruff)
-- [ ] T004 [P] Configure pytest in tests/conftest.py
-- [ ] T005 [P] Create .gitignore with Python and database patterns
+- [x] T001 Create project structure (src/, tests/, requirements.txt)
+- [x] T002 [P] Create Python virtual environment and install dependencies (typer, feedparser, newspaper3k, sqlalchemy, pytest)
+- [x] T003 [P] Setup linting and formatting tools (black, ruff)
+- [x] T004 [P] Configure pytest in tests/conftest.py
+- [x] T005 [P] Create .gitignore with Python and database patterns
 
 ---
 
