@@ -5,13 +5,29 @@ from pathlib import Path
 from typing import Optional
 
 
-# Environment variables
-GEULMARU_DB_PATH = os.getenv("GEULMARU_DB_PATH", "./geulmaru.db")
-GEULMARU_LOG_LEVEL = os.getenv("GEULMARU_LOG_LEVEL", "INFO")
-GEULMARU_USER_AGENT = os.getenv(
-    "GEULMARU_USER_AGENT",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-)
+# Environment variables - get fresh values on each access
+def get_db_path() -> str:
+    """Get database path from environment variable."""
+    return os.getenv("GEULMARU_DB_PATH", "./geulmaru.db")
+
+
+def get_log_level_env() -> str:
+    """Get log level from environment variable."""
+    return os.getenv("GEULMARU_LOG_LEVEL", "INFO")
+
+
+def get_user_agent() -> str:
+    """Get user agent from environment variable."""
+    return os.getenv(
+        "GEULMARU_USER_AGENT",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    )
+
+
+# Backward compatibility
+GEULMARU_DB_PATH = get_db_path()
+GEULMARU_LOG_LEVEL = get_log_level_env()
+GEULMARU_USER_AGENT = get_user_agent()
 
 
 def get_log_level() -> int:
@@ -23,7 +39,7 @@ def get_log_level() -> int:
         "ERROR": logging.ERROR,
         "CRITICAL": logging.CRITICAL,
     }
-    return level_mapping.get(GEULMARU_LOG_LEVEL.upper(), logging.INFO)
+    return level_mapping.get(get_log_level_env().upper(), logging.INFO)
 
 
 def setup_logging() -> None:
@@ -39,12 +55,12 @@ def setup_logging() -> None:
     
     # Create logger for the application
     logger = logging.getLogger("geulmaru")
-    logger.info(f"Logging initialized with level: {GEULMARU_LOG_LEVEL}")
+    logger.info(f"Logging initialized with level: {get_log_level_env()}")
 
 
 def validate_db_path() -> bool:
     """Validate database file path and parent directory permissions."""
-    db_path = Path(GEULMARU_DB_PATH)
+    db_path = Path(get_db_path())
     parent_dir = db_path.parent
     
     # Check if parent directory exists and is writable

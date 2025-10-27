@@ -62,16 +62,16 @@ description: Task list for RSS Collector Application implementation
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T012 [P] [US1] Unit test for database initialization in tests/unit/test_storage.py
-- [ ] T013 [P] [US1] Integration test for init-db command in tests/integration/test_init_db.py
+- [x] T012 [P] [US1] Unit test for database initialization in tests/unit/test_storage.py
+- [x] T013 [P] [US1] Integration test for init-db command in tests/integration/test_init_db.py
 
 ### Implementation for User Story 1
 
-- [ ] T014 [US1] Create init-db CLI command in src/cli/init_db.py
-- [ ] T015 [US1] Implement database table creation with proper indexes in src/services/storage.py
-- [ ] T016 [US1] Add database file path validation and error handling
-- [ ] T017 [US1] Register init-db command in main.py
-- [ ] T018 [US1] Add logging for database initialization operations
+- [x] T014 [US1] Create init-db CLI command in src/cli/init_db.py
+- [x] T015 [US1] Implement database table creation with proper indexes in src/services/storage.py
+- [x] T016 [US1] Add database file path validation and error handling
+- [x] T017 [US1] Register init-db command in main.py
+- [x] T018 [US1] Add logging for database initialization operations
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 

@@ -1,10 +1,9 @@
 """Feed model for RSS feed management."""
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime, Index
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 
-Base = declarative_base()
+from src.models import Base
 
 
 class Feed(Base):

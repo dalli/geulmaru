@@ -4,9 +4,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from contextlib import contextmanager
 
-from src.config import GEULMARU_DB_PATH
-from src.models.feed import Feed, Base
-from src.models.article import Article, Base as ArticleBase
+from src.config import get_db_path
+from src.models import Base, Feed, Article
 
 logger = logging.getLogger(__name__)
 
@@ -23,24 +22,27 @@ def init_database() -> None:
         logger.warning("Database already initialized")
         return
     
-    # Create database engine
-    db_url = f"sqlite:///{GEULMARU_DB_PATH}"
+    # Get fresh database path from environment
+    db_path = get_db_path()
+    
+    # Ensure parent directory exists
+    from pathlib import Path
+    db_file = Path(db_path)
+    db_file.parent.mkdir(parents=True, exist_ok=True)
+    
+    db_url = f"sqlite:///{db_path}"
     _engine = create_engine(db_url, echo=False)
     
     # Create session factory
     _SessionLocal = sessionmaker(bind=_engine)
     
-    logger.info(f"Database initialized: {GEULMARU_DB_PATH}")
+    logger.info(f"Database initialized: {db_path}")
 
 
 def create_tables() -> None:
     """Create all database tables if they don't exist."""
     if _engine is None:
         raise RuntimeError("Database not initialized. Call init_database() first.")
-    
-    # Import all models to ensure they're registered with SQLAlchemy
-    from src.models.feed import Feed
-    from src.models.article import Article
     
     # Create tables
     Base.metadata.create_all(_engine)
@@ -92,7 +94,7 @@ def check_database_exists() -> bool:
         True if database file exists, False otherwise
     """
     import os
-    return os.path.exists(GEULMARU_DB_PATH)
+    return os.path.exists(get_db_path())
 
 
 def reset_database() -> None:
@@ -110,4 +112,19 @@ def reset_database() -> None:
     # Recreate tables
     create_tables()
     logger.info("Database reset successfully")
+
+
+def close_database() -> None:
+    """Close database connection and reset global state.
+    
+    This is mainly for testing purposes to allow reinitialization.
+    """
+    global _engine, _SessionLocal
+    
+    if _engine is not None:
+        _engine.dispose()
+        logger.info("Database connection closed")
+    
+    _engine = None
+    _SessionLocal = None
 
