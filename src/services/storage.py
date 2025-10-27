@@ -44,6 +44,17 @@ def create_tables() -> None:
     if _engine is None:
         raise RuntimeError("Database not initialized. Call init_database() first.")
     
+    # Check if tables already exist
+    from sqlalchemy import inspect
+    inspector = inspect(_engine)
+    existing_tables = inspector.get_table_names()
+    required_tables = ["feeds", "articles"]
+    
+    # Check if all required tables exist
+    if all(table in existing_tables for table in required_tables):
+        logger.debug("Database tables already exist")
+        return
+    
     # Create tables
     Base.metadata.create_all(_engine)
     logger.info("Database tables created successfully")

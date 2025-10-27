@@ -24,7 +24,6 @@ def list_articles_command(limit: int = 10):
         # Ensure database is initialized
         from src.services.storage import _engine
         if _engine is None:
-            logger.info("Database not initialized, initializing...")
             init_database()
             create_tables()
         
@@ -89,7 +88,6 @@ def search_articles_command(keyword: str, limit: int = 50):
         # Ensure database is initialized
         from src.services.storage import _engine
         if _engine is None:
-            logger.info("Database not initialized, initializing...")
             init_database()
             create_tables()
         

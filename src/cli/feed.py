@@ -23,7 +23,6 @@ def add_feed_command(url: str):
         # Ensure database is initialized
         from src.services.storage import _engine
         if _engine is None:
-            logger.info("Database not initialized, initializing...")
             init_database()
             create_tables()
         
@@ -69,7 +68,6 @@ def list_feeds_command():
         # Ensure database is initialized
         from src.services.storage import _engine
         if _engine is None:
-            logger.info("Database not initialized, initializing...")
             init_database()
             create_tables()
         
@@ -119,7 +117,6 @@ def remove_feed_command(feed_id: int):
         # Ensure database is initialized
         from src.services.storage import _engine
         if _engine is None:
-            logger.info("Database not initialized, initializing...")
             init_database()
             create_tables()
         
