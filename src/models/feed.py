@@ -1,9 +1,12 @@
 """Feed model for RSS feed management."""
+import logging
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime, Index
 from sqlalchemy.orm import Session
 
 from src.models import Base
+
+logger = logging.getLogger(__name__)
 
 
 class Feed(Base):
@@ -41,14 +44,17 @@ class Feed(Base):
         # Validate URL
         parsed = urlparse(url)
         if not parsed.scheme or not parsed.netloc:
+            logger.error(f"Invalid URL format: {url}")
             raise ValueError(f"Invalid URL format: {url}")
         
         if parsed.scheme not in ["http", "https"]:
+            logger.error(f"URL must use HTTP or HTTPS protocol: {url}")
             raise ValueError(f"URL must use HTTP or HTTPS protocol: {url}")
         
         # Check for duplicates
         existing_feed = db.query(Feed).filter(Feed.url == url).first()
         if existing_feed:
+            logger.warning(f"Attempt to add duplicate feed: {url}")
             raise ValueError(f"Feed URL already exists: {url}")
         
         # Create new feed
@@ -57,6 +63,7 @@ class Feed(Base):
         db.commit()
         db.refresh(feed)
         
+        logger.debug(f"Created feed: ID={feed.id}, URL={url}")
         return feed
     
     @staticmethod

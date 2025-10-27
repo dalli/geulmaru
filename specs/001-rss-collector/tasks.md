@@ -85,18 +85,18 @@ description: Task list for RSS Collector Application implementation
 
 ### Tests for User Story 2
 
-- [ ] T019 [P] [US2] Unit test for Feed model in tests/unit/test_feed_model.py
-- [ ] T020 [P] [US2] Unit test for URL validation in tests/unit/test_feed_model.py
-- [ ] T021 [P] [US2] Integration test for feed add command in tests/integration/test_feed_add.py
+- [x] T019 [P] [US2] Unit test for Feed model in tests/unit/test_feed_model.py
+- [x] T020 [P] [US2] Unit test for URL validation in tests/unit/test_feed_model.py
+- [x] T021 [P] [US2] Integration test for feed add command in tests/integration/test_feed_add.py
 
 ### Implementation for User Story 2
 
-- [ ] T022 [US2] Implement Feed.add_feed() method in src/models/feed.py
-- [ ] T023 [US2] Add URL validation and duplicate checking in src/models/feed.py
-- [ ] T024 [US2] Create feed CLI subcommand in src/cli/feed.py (add command)
-- [ ] T025 [US2] Add error handling for invalid URLs and duplicates
-- [ ] T026 [US2] Add logging for feed addition operations
-- [ ] T027 [US2] Register feed subcommand in main.py
+- [x] T022 [US2] Implement Feed.add_feed() method in src/models/feed.py
+- [x] T023 [US2] Add URL validation and duplicate checking in src/models/feed.py
+- [x] T024 [US2] Create feed CLI subcommand in src/cli/feed.py (add command)
+- [x] T025 [US2] Add error handling for invalid URLs and duplicates
+- [x] T026 [US2] Add logging for feed addition operations
+- [x] T027 [US2] Register feed subcommand in main.py
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
