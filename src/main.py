@@ -3,6 +3,7 @@ import typer
 
 from src.cli.init_db import init_db_command
 from src.cli.feed import add_feed_command, list_feeds_command, remove_feed_command
+from src.cli.fetch import fetch_all_command
 
 # Create main CLI app
 app = typer.Typer(help="Geulmaru - RSS Collector Application")
@@ -34,6 +35,12 @@ def remove_feed(feed_id: int = typer.Argument(..., help="ID of the feed to remov
 def init_db():
     """Initialize the database with necessary tables."""
     init_db_command()
+
+
+@app.command("fetch-all")
+def fetch_all():
+    """Fetch articles from all registered RSS feeds."""
+    fetch_all_command()
 
 
 @app.command()

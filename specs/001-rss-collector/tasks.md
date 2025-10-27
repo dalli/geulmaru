@@ -110,14 +110,14 @@ description: Task list for RSS Collector Application implementation
 
 ### Tests for User Story 3
 
-- [ ] T028 [P] [US3] Integration test for feed list command in tests/integration/test_feed_list.py
+- [x] T028 [P] [US3] Integration test for feed list command in tests/integration/test_feed_list.py
 
 ### Implementation for User Story 3
 
-- [ ] T029 [US3] Implement Feed.list_all() method in src/models/feed.py
-- [ ] T030 [US3] Create feed list CLI subcommand in src/cli/feed.py (list command)
-- [ ] T031 [US3] Format feed list output with ID, URL, created_at columns
-- [ ] T032 [US3] Handle empty feed list case with user-friendly message
+- [x] T029 [US3] Implement Feed.list_all() method in src/models/feed.py
+- [x] T030 [US3] Create feed list CLI subcommand in src/cli/feed.py (list command)
+- [x] T031 [US3] Format feed list output with ID, URL, created_at columns
+- [x] T032 [US3] Handle empty feed list case with user-friendly message
 
 ---
 
@@ -129,25 +129,25 @@ description: Task list for RSS Collector Application implementation
 
 ### Tests for User Story 4
 
-- [ ] T033 [P] [US4] Unit test for RSS fetching in tests/unit/test_feed_fetcher.py
-- [ ] T034 [P] [US4] Unit test for RSS parsing in tests/unit/test_feed_parser.py
-- [ ] T035 [P] [US4] Unit test for article scraping in tests/unit/test_article_scraper.py
-- [ ] T036 [P] [US4] Unit test for duplicate detection in tests/unit/test_storage.py
-- [ ] T037 [P] [US4] Integration test for end-to-end fetch-all in tests/integration/test_fetch_all.py
+- [x] T033 [P] [US4] Unit test for RSS fetching in tests/unit/test_feed_fetcher.py
+- [x] T034 [P] [US4] Unit test for RSS parsing in tests/unit/test_feed_parser.py
+- [x] T035 [P] [US4] Unit test for article scraping in tests/unit/test_article_scraper.py
+- [x] T036 [P] [US4] Unit test for duplicate detection in tests/unit/test_storage.py
+- [x] T037 [P] [US4] Integration test for end-to-end fetch-all in tests/integration/test_fetch_all.py
 
 ### Implementation for User Story 4
 
-- [ ] T038 [US4] Implement Feed Fetcher service in src/services/feed_fetcher.py (fetch RSS XML from URLs)
-- [ ] T039 [US4] Implement Feed Parser service in src/services/feed_parser.py (parse XML to article metadata)
-- [ ] T040 [US4] Implement Article Scraper service in src/services/article_scraper.py (extract content from URLs)
-- [ ] T041 [US4] Implement article storage in src/services/storage.py (save articles with duplicate checking)
-- [ ] T042 [US4] Implement duplicate detection by URL before scraping in src/services/storage.py
-- [ ] T043 [US4] Add error handling for network failures and invalid RSS in src/services/feed_fetcher.py
-- [ ] T044 [US4] Add error handling for scraping failures in src/services/article_scraper.py
-- [ ] T045 [US4] Add logging for fetch progress and errors
-- [ ] T046 [US4] Create fetch-all CLI command in src/cli/fetch.py
-- [ ] T047 [US4] Register fetch command in main.py
-- [ ] T048 [US4] Display summary statistics after fetch completion
+- [x] T038 [US4] Implement Feed Fetcher service in src/services/feed_fetcher.py (fetch RSS XML from URLs)
+- [x] T039 [US4] Implement Feed Parser service in src/services/feed_parser.py (parse XML to article metadata)
+- [x] T040 [US4] Implement Article Scraper service in src/services/article_scraper.py (extract content from URLs)
+- [x] T041 [US4] Implement article storage in src/services/storage.py (save articles with duplicate checking)
+- [x] T042 [US4] Implement duplicate detection by URL before scraping in src/services/storage.py
+- [x] T043 [US4] Add error handling for network failures and invalid RSS in src/services/feed_fetcher.py
+- [x] T044 [US4] Add error handling for scraping failures in src/services/article_scraper.py
+- [x] T045 [US4] Add logging for fetch progress and errors
+- [x] T046 [US4] Create fetch-all CLI command in src/cli/fetch.py
+- [x] T047 [US4] Register fetch command in main.py
+- [x] T048 [US4] Display summary statistics after fetch completion
 
 **Checkpoint**: At this point, User Stories 1, 2, AND 4 should work together (core functionality)
 

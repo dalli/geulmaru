@@ -132,3 +132,110 @@ class TestDatabaseInitialization:
         # Should raise RuntimeError
         with pytest.raises(RuntimeError, match="Database not initialized"):
             get_session()
+
+
+@pytest.mark.unit
+class TestArticleStorage:
+    """Tests for article storage and duplicate detection."""
+    
+    def teardown_method(self):
+        """Close database after each test."""
+        from src.services.storage import close_database
+        close_database()
+        importlib.reload(src.config)
+        importlib.reload(storage_module)
+    
+    def test_check_duplicate_detects_existing_article(self, clean_environment, monkeypatch, tmp_path):
+        """Test that duplicate detection finds existing articles."""
+        importlib.reload(src.config)
+        importlib.reload(storage_module)
+        
+        from src.services.storage import init_database, create_tables, get_db_session
+        from src.models.article import Article
+        from datetime import datetime
+        
+        # Set temporary database path
+        test_db = str(tmp_path / "test.db")
+        monkeypatch.setenv("GEULMARU_DB_PATH", test_db)
+        
+        # Initialize database
+        init_database()
+        create_tables()
+        
+        # Add a test article
+        test_url = "https://example.com/article/1"
+        
+        with get_db_session() as db:
+            Article.add_article(
+                db=db,
+                feed_id=1,
+                url=test_url,
+                title="Test Article",
+                published_at=datetime.utcnow()
+            )
+        
+        # Check for duplicate
+        with get_db_session() as db:
+            is_duplicate = Article.exists_by_url(db, test_url)
+            assert is_duplicate is True
+    
+    def test_check_duplicate_detects_no_duplicate(self, clean_environment, monkeypatch, tmp_path):
+        """Test that duplicate detection correctly identifies non-duplicates."""
+        importlib.reload(src.config)
+        importlib.reload(storage_module)
+        
+        from src.services.storage import init_database, create_tables, get_db_session
+        from src.models.article import Article
+        
+        # Set temporary database path
+        test_db = str(tmp_path / "test.db")
+        monkeypatch.setenv("GEULMARU_DB_PATH", test_db)
+        
+        # Initialize database
+        init_database()
+        create_tables()
+        
+        # Check for non-existent article
+        with get_db_session() as db:
+            is_duplicate = Article.exists_by_url(db, "https://example.com/new-article")
+            assert is_duplicate is False
+    
+    def test_save_article_with_duplicate_check(self, clean_environment, monkeypatch, tmp_path):
+        """Test that article storage with duplicate check prevents duplicates."""
+        importlib.reload(src.config)
+        importlib.reload(storage_module)
+        
+        from src.services.storage import init_database, create_tables, get_db_session
+        from src.models.article import Article
+        from datetime import datetime
+        
+        # Set temporary database path
+        test_db = str(tmp_path / "test.db")
+        monkeypatch.setenv("GEULMARU_DB_PATH", test_db)
+        
+        # Initialize database
+        init_database()
+        create_tables()
+        
+        test_url = "https://example.com/article/1"
+        
+        # Add first article
+        with get_db_session() as db:
+            Article.add_article(
+                db=db,
+                feed_id=1,
+                url=test_url,
+                title="First Article",
+                published_at=datetime.utcnow()
+            )
+        
+        # Try to add duplicate
+        with pytest.raises(ValueError, match="Article URL already exists"):
+            with get_db_session() as db:
+                Article.add_article(
+                    db=db,
+                    feed_id=1,
+                    url=test_url,
+                    title="Duplicate Article",
+                    published_at=datetime.utcnow()
+                )
