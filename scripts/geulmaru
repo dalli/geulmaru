@@ -27,6 +27,9 @@ fi
 # 가상환경 활성화
 source "$VENV_DIR/bin/activate"
 
+# urllib3 경고 비활성화
+export PYTHONWARNINGS="ignore"
+
 # 명령어 인자가 없으면 도움말 표시
 if [ $# -eq 0 ]; then
     python -m src.main --help

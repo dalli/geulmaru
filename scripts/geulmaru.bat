@@ -22,6 +22,9 @@ if not exist "%VENV_DIR%\Scripts\python.exe" (
     exit /b 1
 )
 
+REM urllib3 경고 비활성화
+set PYTHONWARNINGS=ignore
+
 REM 명령어 인자가 없으면 도움말 표시
 if "%1"=="" (
     call "%VENV_DIR%\Scripts\activate.bat"
